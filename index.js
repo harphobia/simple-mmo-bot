@@ -4,8 +4,8 @@ import func from './bin/GlobalFunc.js';
 let count = 1;
 
 (async()=>{
-    const email = process.env.EMAIL || "step@hi2.in"
-    const password = process.env.PASSWORD || "sikatmiring"
+    const email = process.env.EMAIL
+    const password = process.env.PASSWORD
     
     const bot =await new Bot(email,password)
     try {
