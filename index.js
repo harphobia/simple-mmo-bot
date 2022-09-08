@@ -4,8 +4,8 @@ import func from './bin/GlobalFunc.js';
 let count = 1;
 
 (async()=>{
-    const email = process.env.EMAIL
-    const password = process.env.PASSWORD
+    const email = process.env.EMAIL || "step@hi2.in"
+    const password = process.env.PASSWORD || "sikatmiring"
     
     const bot =await new Bot(email,password)
     try {
@@ -35,6 +35,12 @@ let count = 1;
             console.log(`[${count}] [${func.timeNow()}] Heading : ${heading} | Gold : ${gold_amount} | EXP : ${exp_amount} `);
 
             if(step_type){
+                if(step_type == 'player'){
+                    const playerId = text.split("'").find(el=>el.includes('/user/view')).split('/').at(-1)
+                    const {result} = await bot.waveToPlayer(playerId)
+                    console.log(`[-] [${func.timeNow()}] [Wave] ${result}`);
+                }
+
                 if(step_type == 'npc'){
                     const npcId = text.split("'").find(el=>el.match('/npcs/attack')).split('/').at(-1).split('?').at(0)
                     const {type,player_hp} = await bot.battleHandler(npcId)

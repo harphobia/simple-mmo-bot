@@ -82,6 +82,8 @@ class SimpleMMO {
     });
     
     login = () => new Promise(async (resolve, reject) => {       
+
+        if(!this.email && !this.password) reject("No email or password")
         
         await this.getLoginToken()
         
