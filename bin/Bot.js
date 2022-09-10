@@ -183,6 +183,19 @@ class Bot extends SimpleMMO {
         .catch((err)=> reject(err))
     });
 
+    craftItem = (itemId) => new Promise((resolve, reject) => {
+        fetch(`https://web.simple-mmo.com/api/crafting/craft/${itemId}`, {
+            method: 'POST',
+            headers: {...header, 'Cookie': `XSRF-TOKEN=${this.xsrf_token}; laravelsession=${this.laravel_session}; ${this.remember_web_key}=${this.remember_web_value}; d_h=true`},
+            body: new URLSearchParams({
+                '_token': this.token,
+            })
+        })
+        .then((res)=>res.json())
+        .then((res) => resolve(res))
+        .catch((err)=> reject(err))
+    });
+
 }
 
 

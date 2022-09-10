@@ -113,6 +113,27 @@ class SimpleMMO {
         .catch((err) => reject(err))
     });
 
+    getCaptchaData = () => new Promise((resolve, reject) => {
+        fetch(`https://web.simple-mmo.com/api/crafting/craft/${itemId}`, {
+            headers: {...header, 'Cookie': `XSRF-TOKEN=${this.xsrf_token}; laravelsession=${this.laravel_session}; ${this.remember_web_key}=${this.remember_web_value}; d_h=true`}
+        })
+        .then((res)=>res.text())
+        .then((res) => {
+            const $ = cheerio.load(res)
+            const title = $('.text-2xl').text().toLowerCase()
+
+            const items = []
+            $('div[class="text-center bg-white rounded-md p-4 cursor-pointer"]').each((i,el)=>{
+                const payload = $(el).attr('onclick').split("'").at(1)
+                const image = `https://web.simple-mmo.com/i-am-not-a-bot/generate_image?uid=${i}`
+                items.push({payload,image})
+            })
+
+            resolve(items)
+        })
+        .catch((err)=> reject(err))
+    });
+
     logout = () => new Promise((resolve, reject) => {
         fetch('https://web.simple-mmo.com/logout', {
             headers: {...header, 'Cookie': `XSRF-TOKEN=${this.xsrf_token}; laravelsession=${this.laravel_session}; ${this.remember_web_key}=${this.remember_web_value}; d_h=true`}
