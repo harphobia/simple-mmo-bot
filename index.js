@@ -11,5 +11,5 @@ stepBot.on('error',(err)=>{
 })
 
 stepBot.on('exit',()=>{
-    process.exit()
+    process.exit(0)
 })

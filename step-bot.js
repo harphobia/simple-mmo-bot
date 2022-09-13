@@ -46,7 +46,7 @@ parentPort.postMessage(`[Worker] Worker ${workerId} ready on duty!`);
 
                 if(step_type == 'npc'){
                     const npcId = text.split("'").find(el=>el.match('/npcs/attack')).split('/').at(-1).split('?').at(0)
-                    const {type,player_hp} = await bot.battleHandler(npcId)
+                    const {type} = await bot.battleHandler(npcId)
                     console.log(`[${workerId}] [${func.timeNow()}] [Battle] Status : ${type == "success" ? chalk.bgGreen(type) : chalk.bgRed(type)}`);
                 }
 
