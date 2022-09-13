@@ -148,6 +148,17 @@ class Bot extends SimpleMMO {
         .catch((err)=> reject(err))
     });
 
+    gatherHandler = (materialId) => new Promise(async(resolve, reject) => {
+        let data = {gatherEnd:false}
+
+        while(data.gatherEnd == false){
+           data = await this.gatherMaterial(materialId)
+           await func.delayInSecond(3)
+        }
+
+        resolve(data)
+    })
+
     gatherMaterial = (materialId) => new Promise(async(resolve, reject) => {
         fetch(`https://web.simple-mmo.com/api/crafting/material/gather/${materialId}`, {
             method: 'POST',
