@@ -1,5 +1,5 @@
-import Bot from './bin/Bot.js';
-import func from './bin/GlobalFunc.js';
+import Bot from './lib/Bot.js';
+import func from './lib/GlobalFunc.js';
 import chalk from 'chalk';
 import {parentPort} from 'worker_threads';
 
@@ -58,7 +58,7 @@ parentPort.postMessage(`[Worker] Worker ${workerId} ready on duty!`);
                     }
                 }
             }
-            await func.delayInMilisecond(wait_length+func.randNumbBetween(2000,5000))
+            await func.delayInMilisecond(wait_length+func.randNumbBetween(1000,2000))
         }
 
     } catch (error) {
